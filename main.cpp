@@ -4,6 +4,9 @@
 #include <sstream>
 #include <thread>
 #include <fstream>
+#include <chrono>
+
+using namespace std::chrono;
 
 thread_local int sum = 0;
 int wait_limit;
@@ -33,7 +36,9 @@ void* producer_routine(void* arg) {
     std::istringstream sin(numbers);
 
     int number;
+    int count = 0;
     while (sin >> number) {
+        count++;
         pthread_mutex_lock(&number_mutex);
 
         int *queued_number = reinterpret_cast<int*>(arg);
@@ -46,6 +51,7 @@ void* producer_routine(void* arg) {
         }
         pthread_mutex_unlock(&number_mutex);
     }
+    std::cout << "Numbers: " << count << std::endl;
 
     pthread_mutex_lock(&number_mutex);
     running = false;
@@ -75,8 +81,9 @@ void* consumer_routine(void* arg) {
             number_set = false;
             pthread_cond_signal(&producer_condition);
         }
-
+        pthread_mutex_unlock(&number_mutex);
         std::this_thread::sleep_for(std::chrono::milliseconds(gen_wait_time()));
+        pthread_mutex_lock(&number_mutex);
     }
     pthread_mutex_unlock(&number_mutex);
 
@@ -138,8 +145,15 @@ int run_threads() {
 
 int main(int argc, char *argv[]) {
     UNUSED(&argc);
+    auto start = high_resolution_clock::now();
+
     consumer_count = std::stoul(argv[1]);
     wait_limit = std::stoi(argv[2]);
     std::cout << run_threads() << std::endl;
+
+    auto stop = high_resolution_clock::now();
+    auto duration = duration_cast<seconds>(stop - start);
+
+    std::cout << "Time: " << duration.count() << std::endl;
     return 0;
 }
