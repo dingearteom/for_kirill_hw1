@@ -36,9 +36,9 @@ void* producer_routine(void* arg) {
     std::istringstream sin(numbers);
 
     int number;
-    int count = 0;
+    // int count = 0;
     while (sin >> number) {
-        count++;
+        // count++;
         pthread_mutex_lock(&number_mutex);
 
         int *queued_number = reinterpret_cast<int*>(arg);
@@ -51,7 +51,6 @@ void* producer_routine(void* arg) {
         }
         pthread_mutex_unlock(&number_mutex);
     }
-    std::cout << "Numbers: " << count << std::endl;
 
     pthread_mutex_lock(&number_mutex);
     running = false;
