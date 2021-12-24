@@ -154,6 +154,6 @@ int main(int argc, char *argv[]) {
     auto stop = high_resolution_clock::now();
     auto duration = duration_cast<seconds>(stop - start);
 
-    std::cout << "Time: " << duration.count() << std::endl;
+    // std::cout << "Time: " << duration.count() << std::endl;
     return 0;
 }
