@@ -3,6 +3,7 @@
 #include <vector>
 #include <sstream>
 #include <thread>
+#include <fstream>
 
 thread_local int sum = 0;
 int wait_limit;
@@ -22,7 +23,8 @@ void* producer_routine(void* arg) {
     pthread_barrier_wait(&barrier);
 
     std::string numbers;
-    std::getline(std::cin, numbers);
+    std::ifstream file("in.txt");
+    std::getline(file, numbers);
     std::istringstream sin(numbers);
 
     int number;
@@ -130,8 +132,6 @@ int run_threads() {
 int main(int argc, char *argv[]) {
     consumer_count = std::stoul(argv[1]);
     wait_limit = std::stoi(argv[2]);
-
-
     std::cout << run_threads() << std::endl;
     return 0;
 }
