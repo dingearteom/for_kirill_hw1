@@ -20,7 +20,8 @@ bool number_set = false;
 bool running = true;
 
 void UNUSED(void* arg) {
-    (void*)arg;
+    void* trash = arg;
+    arg = trash;
 }
 
 void* producer_routine(void* arg) {
