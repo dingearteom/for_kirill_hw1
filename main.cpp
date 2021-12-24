@@ -19,6 +19,10 @@ pthread_barrier_t barrier;
 bool number_set = false;
 bool running = true;
 
+void UNUSED(void* arg) {
+    void* trash = arg;
+}
+
 void* producer_routine(void* arg) {
     pthread_barrier_wait(&barrier);
 
@@ -55,6 +59,7 @@ int gen_wait_time() {
 }
 
 void* consumer_routine(void* arg) {
+    UNUSED(arg);
     pthread_setcancelstate(PTHREAD_CANCEL_DISABLE, nullptr);
     pthread_barrier_wait(&barrier);
 
@@ -130,6 +135,7 @@ int run_threads() {
 }
 
 int main(int argc, char *argv[]) {
+    UNUSED(&argc);
     consumer_count = std::stoul(argv[1]);
     wait_limit = std::stoi(argv[2]);
     std::cout << run_threads() << std::endl;
