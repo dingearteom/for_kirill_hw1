@@ -1,0 +1,106 @@
+name: C/C++ CI
+
+on:
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  asan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run asan.sh
+      run: |
+         chmod +x ./.test/asan.sh
+         ./.test/asan.sh
+      shell: bash
+  compile_test_gcc:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run compile_test_gcc.sh
+      run: |
+         chmod +x ./.test/compile_test_gcc.sh
+         ./.test/compile_test_gcc.sh
+      shell: bash
+  compile_test_clang:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run compile_test_clang.sh
+      run: |
+         chmod +x ./.test/compile_test_clang.sh
+         ./.test/compile_test_clang.sh
+      shell: bash
+  empty_input:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run empty_input.sh
+      run: |
+         chmod +x ./.test/empty_input.sh
+         ./.test/empty_input.sh
+      shell: bash
+  even:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run even.sh
+      run: |
+         chmod +x ./.test/even.sh
+         ./.test/even.sh
+      shell: bash
+  invalid_input:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run invalid_input.sh
+      run: |
+         chmod +x ./.test/invalid_input.sh
+         ./.test/invalid_input.sh
+      shell: bash
+  odd:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run odd.sh
+      run: |
+         chmod +x ./.test/odd.sh
+         ./.test/odd.sh
+      shell: bash
+  random:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run random.sh
+      run: |
+         chmod +x ./.test/random.sh
+         ./.test/random.sh
+      shell: bash
+  single_value:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 1
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run single_value.sh
+      run: |
+         chmod +x ./.test/single_value.sh
+         ./.test/single_value.sh
+      shell: bash
+  test:    
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+    - uses: actions/checkout@v2
+    - name: Run test.sh
+      run: |
+         chmod +x ./.test/test.sh
+         ./.test/test.sh
