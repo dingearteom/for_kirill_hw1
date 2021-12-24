@@ -20,7 +20,7 @@ bool number_set = false;
 bool running = true;
 
 void UNUSED(void* arg) {
-    void* trash = arg;
+    (void*)arg;
 }
 
 void* producer_routine(void* arg) {
@@ -84,6 +84,7 @@ void* consumer_routine(void* arg) {
 }
 
 void* consumer_interruptor_routine(void* arg) {
+    UNUSED(arg);
     pthread_barrier_wait(&barrier);
 
     pthread_mutex_lock(&number_mutex);
